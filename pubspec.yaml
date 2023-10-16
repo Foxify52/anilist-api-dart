@@ -1,0 +1,20 @@
+name: anilist_api
+description: anilist api wrapper for dart
+version: 1.0.0
+
+environment:
+  sdk: '>=3.1.0 <4.0.0'
+
+dependencies:
+  built_value: ^8.6.3
+  built_collection: ^5.1.1
+
+  dio: ^5.3.3
+  meta: ^1.9.1
+
+dev_dependencies:
+  lints: ^2.1.1
+  test: ^1.24.7
+
+  build_runner: ^2.4.6
+  built_value_generator: ^8.6.3
