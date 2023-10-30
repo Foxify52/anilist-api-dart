@@ -5,7 +5,8 @@ import 'package:dio/dio.dart';
 import 'anilist_request.dart';
 import 'models/models.dart';
 
-class AnilistStaffRequest extends AnilistStaffSelect with AnilistRequest {
+class AnilistStaffRequest extends AnilistStaffSelect
+    with AnilistRequest<AnilistStaff> {
   @override
   Dio client;
 
@@ -20,19 +21,19 @@ class AnilistStaffRequest extends AnilistStaffSelect with AnilistRequest {
   }
 
   AnilistStaffRequest copy() {
-    var newArgs = Map<String, dynamic>.from(arguments);
+    Map<String, dynamic> newArgs = Map<String, dynamic>.from(arguments);
     return AnilistStaffRequest.fromArguments(newArgs);
   }
 
   Future<AnilistStaff> byId(int id) async {
-    var response = await client.post(
+    Response<dynamic> response = await client.post(
       '',
-      data: {
-        "query": query,
-        "variables": {'id': id},
+      data: <String, Object>{
+        'query': query,
+        'variables': <String, int>{'id': id},
       },
     );
-    var char = response.data['data'][name];
+    dynamic char = response.data['data'][name];
     return AnilistStaff.fromJson(char);
   }
 

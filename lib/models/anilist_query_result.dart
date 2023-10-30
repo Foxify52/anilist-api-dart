@@ -11,7 +11,7 @@ part 'anilist_query_result.g.dart';
 
 abstract class AnilistQueryResult<E>
     implements Built<AnilistQueryResult<E>, AnilistQueryResultBuilder<E>> {
-  static Serializer<AnilistQueryResult> get serializer =>
+  static Serializer<AnilistQueryResult<Object?>> get serializer =>
       _$anilistQueryResultSerializer;
   AnilistPageInfo? get pageInfo;
   BuiltList<E>? get results;
@@ -22,18 +22,18 @@ abstract class AnilistQueryResult<E>
   ]) = _$AnilistQueryResult<E>;
 
   static const FullType specifiedType =
-      FullType(BuiltList, [FullType(AnilistQueryResult)]);
-  static String jsonListString(BuiltList<AnilistQueryResult> list) =>
+      FullType(BuiltList, <FullType>[FullType(AnilistQueryResult)]);
+  static String jsonListString(BuiltList<AnilistQueryResult<dynamic>> list) =>
       jsonEncode(
         serializers.serialize(
           list,
-          specifiedType: FullType(AnilistQueryResult),
+          specifiedType: const FullType(AnilistQueryResult),
         ),
       );
 
-  static BuiltList<AnilistQueryResult> fromJsonList(String json) =>
+  static BuiltList<AnilistQueryResult<dynamic>> fromJsonList(String json) =>
       serializers.deserialize(
         jsonDecode(json),
-        specifiedType: FullType(AnilistQueryResult),
-      ) as BuiltList<AnilistQueryResult>;
+        specifiedType: const FullType(AnilistQueryResult),
+      ) as BuiltList<AnilistQueryResult<dynamic>>;
 }

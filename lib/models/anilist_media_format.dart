@@ -25,7 +25,7 @@ class AnilistMediaFormat extends EnumClass {
   static const AnilistMediaFormat NOVEL = _$novel;
   static const AnilistMediaFormat ONE_SHOT = _$oneshot;
 
-  const AnilistMediaFormat._(String name) : super(name);
+  const AnilistMediaFormat._(super.name);
 
   static BuiltSet<AnilistMediaFormat> get values => _$values;
   static AnilistMediaFormat valueOf(String name) => _$valueOf(name);

@@ -3,32 +3,32 @@ import 'models.dart';
 class AnilistMediaSelect extends AnilistSelect {
   @override
   String get name => 'Media';
-  static const Map<String, dynamic> argumentTitle = {
+  static const Map<String, dynamic> argumentTitle = <String, void>{
     'romaji': null,
     'english': null,
     'native': null,
   };
 
-  static const Map<String, dynamic> argumentDate = {
+  static const Map<String, dynamic> argumentDate = <String, void>{
     'year': null,
     'month': null,
     'day': null,
   };
 
-  static const Map<String, dynamic> argumentTrailer = {
+  static const Map<String, dynamic> argumentTrailer = <String, void>{
     'id': null,
     'site': null,
     'thumbnail': null,
   };
 
-  static const Map<String, dynamic> argumentCoverImage = {
+  static const Map<String, dynamic> argumentCoverImage = <String, void>{
     'extraLarge': null,
     'large': null,
     'medium': null,
     'color': null,
   };
 
-  static const Map<String, dynamic> argumentTags = {
+  static const Map<String, dynamic> argumentTags = <String, void>{
     'id': null,
     'name': null,
     'description': null,
@@ -167,7 +167,7 @@ class AnilistMediaSelect extends AnilistSelect {
   void withoutTagsIsAdult() => removeSub('tags', 'isAdult');
   void withoutTags() => remove('tags');
 
-  void withCharcters(AnilistSubquery<AnilistCharacterSelect> subSelect) =>
+  void withCharacters(AnilistSubquery<AnilistCharacterSelect> subSelect) =>
       add('characters', subArguments: subSelect);
   void withoutCharacters() => remove('characters');
 

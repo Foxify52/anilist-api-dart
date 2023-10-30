@@ -5,21 +5,23 @@ import 'models/models.dart';
 
 part 'serializers.g.dart';
 
-@SerializersFor([AnilistMedia, AnilistCharacter, AnilistPageInfo, AnilistStaff])
+@SerializersFor(
+  <Type>[AnilistMedia, AnilistCharacter, AnilistPageInfo, AnilistStaff],
+)
 final Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         // add this builder factory
-        const FullType(BuiltList, [FullType(AnilistMedia)]),
+        const FullType(BuiltList, <FullType>[FullType(AnilistMedia)]),
         () => ListBuilder<AnilistMedia>(),
       )
       ..addBuilderFactory(
         // add this builder factory
-        const FullType(BuiltList, [FullType(AnilistCharacter)]),
+        const FullType(BuiltList, <FullType>[FullType(AnilistCharacter)]),
         () => ListBuilder<AnilistCharacter>(),
       )
       ..addBuilderFactory(
         // add this builder factory
-        const FullType(BuiltList, [FullType(AnilistStaff)]),
+        const FullType(BuiltList, <FullType>[FullType(AnilistStaff)]),
         () => ListBuilder<AnilistStaff>(),
       )
       ..addPlugin(StandardJsonPlugin()))
@@ -27,6 +29,8 @@ final Serializers serializers = (_$serializers.toBuilder()
 
 T deserialize<T>(dynamic value) => serializers.deserialize(value) as T;
 
-BuiltList<T> deserializeListOf<T>(dynamic value) => BuiltList.from(
-      value.map((value) => deserialize<T>(value)).toList(growable: false),
+BuiltList<T> deserializeListOf<T>(dynamic value) => BuiltList<T>.from(
+      value
+          .map((dynamic value) => deserialize<T>(value))
+          .toList(growable: false),
     );

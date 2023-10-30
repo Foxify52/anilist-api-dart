@@ -19,7 +19,7 @@ class AnilistMediaSeason extends EnumClass {
   static const AnilistMediaSeason SPRING = _$spring;
   static const AnilistMediaSeason FALL = _$fall;
 
-  const AnilistMediaSeason._(String name) : super(name);
+  const AnilistMediaSeason._(super.name);
 
   static BuiltSet<AnilistMediaSeason> get values => _$values;
   static AnilistMediaSeason valueOf(String name) => _$valueOf(name);

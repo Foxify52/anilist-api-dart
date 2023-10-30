@@ -5,7 +5,8 @@ import 'package:dio/dio.dart';
 import 'anilist_request.dart';
 import 'models/models.dart';
 
-class AnilistMediaRequest extends AnilistMediaSelect with AnilistRequest {
+class AnilistMediaRequest extends AnilistMediaSelect
+    with AnilistRequest<AnilistMedia> {
   @override
   Dio client;
 
@@ -23,19 +24,19 @@ class AnilistMediaRequest extends AnilistMediaSelect with AnilistRequest {
   }
 
   AnilistMediaRequest copy() {
-    var newArgs = Map<String, dynamic>.from(arguments);
+    Map<String, dynamic> newArgs = Map<String, dynamic>.from(arguments);
     return AnilistMediaRequest.fromArguments(newArgs);
   }
 
   Future<AnilistMedia> byId(int id) async {
-    var response = await client.post(
+    Response<dynamic> response = await client.post(
       '',
-      data: {
-        "query": query,
-        "variables": {'id': id},
+      data: <String, Object>{
+        'query': query,
+        'variables': <String, int>{'id': id},
       },
     );
-    var media = response.data['data']['Media'];
+    dynamic media = response.data['data']['Media'];
     return AnilistMedia.fromJson(media);
   }
 

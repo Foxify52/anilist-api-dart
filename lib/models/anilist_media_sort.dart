@@ -52,7 +52,7 @@ class AnilistMediaSort extends EnumClass {
   static const AnilistMediaSort FAVOURITES = _$favourites;
   static const AnilistMediaSort FAVOURITES_DESC = _$favouritesdec;
 
-  const AnilistMediaSort._(String name) : super(name);
+  const AnilistMediaSort._(super.name);
 
   static BuiltSet<AnilistMediaSort> get values => _$values;
   static AnilistMediaSort valueOf(String name) => _$valueOf(name);

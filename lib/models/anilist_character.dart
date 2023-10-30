@@ -36,7 +36,7 @@ abstract class AnilistCharacter
       _$AnilistCharacter;
 
   static const FullType specifiedType =
-      FullType(BuiltList, [FullType(AnilistCharacter)]);
+      FullType(BuiltList, <FullType>[FullType(AnilistCharacter)]);
 
   static String jsonListString(BuiltList<AnilistCharacter> list) =>
       jsonEncode(serializers.serialize(list, specifiedType: specifiedType));
@@ -46,10 +46,10 @@ abstract class AnilistCharacter
           as BuiltList<AnilistCharacter>;
 
   static AnilistCharacter fromJson(Map<String, dynamic> json) =>
-      serializers.deserialize(json, specifiedType: FullType(AnilistCharacter))
+      serializers.deserialize(json, specifiedType: const FullType(AnilistCharacter))
           as AnilistCharacter;
 
   static String toJson(AnilistCharacter media) =>
-      serializers.serialize(media, specifiedType: FullType(AnilistCharacter))
+      serializers.serialize(media, specifiedType: const FullType(AnilistCharacter))
           as String;
 }

@@ -11,7 +11,7 @@ class AnilistSelect {
   int page = 1;
   int perPage = 10;
 
-  String get name => "select";
+  String get name => 'select';
 
   void add(String key, {dynamic subArguments}) => arguments[key] = subArguments;
   void remove(String key) => arguments.remove(key);
@@ -27,12 +27,14 @@ class AnilistSelect {
   void removeWhereArgument(String key) => whereArguments.remove(key);
 
   dynamic whereArgumentToGraph(String key) {
-    var value = whereArguments[key];
+    dynamic value = whereArguments[key];
     if (value == null) return '';
     if (value is int || value is double || value is EnumClass) return value;
-    if (value is List<String>) return '[${value.map((e) => '"$e"').join(',')}]';
+    if (value is List<String>) {
+      return '[${value.map((String e) => '"$e"').join(',')}]';
+    }
     if (value is List<EnumClass>) {
-      return '[${value.map((e) => '$e').join(',')}]';
+      return '[${value.map((EnumClass e) => '$e').join(',')}]';
     }
     return '"$value"';
   }
@@ -45,7 +47,7 @@ class AnilistSelect {
   String get pageElements => queryElements(pageArguments);
 
   String get where => whereArguments.keys
-      .map((key) => '$key: ${whereArgumentToGraph(key)}')
+      .map((String key) => '$key: ${whereArgumentToGraph(key)}')
       .join(',');
 
   String get query {
@@ -79,14 +81,14 @@ class AnilistSelect {
 
   @protected
   String queryElements(Map<String, dynamic> arguments) {
-    return arguments.keys.map((k) {
-      var value = arguments[k];
+    return arguments.keys.map((String k) {
+      dynamic value = arguments[k];
       if (value != null) {
         if (value is Map<String, dynamic>) {
           return '$k {${queryElements(value)}}';
         }
         if (value is AnilistSubquery) {
-          var where = value.select.where;
+          String where = value.select.where;
           where = ', $where';
           return '$k(page: ${value.page}, perPage: ${value.perPage}$where) {nodes {${value.select.elements}}}';
         }

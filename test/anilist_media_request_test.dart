@@ -6,11 +6,11 @@ import 'package:test/test.dart';
 
 void main() {
   test('request string', () async {
-    final charSelect = AnilistCharacterSelect();
+    final AnilistCharacterSelect charSelect = AnilistCharacterSelect();
     charSelect.withNameFull();
-    final staffSelect = AnilistStaffSelect();
+    final AnilistStaffSelect staffSelect = AnilistStaffSelect();
     staffSelect.withNameFull();
-    final request = AnilistMediaRequest();
+    final AnilistMediaRequest request = AnilistMediaRequest();
     request
       ..withIdMal()
       ..withTitle()
@@ -40,9 +40,11 @@ void main() {
       ..withTrending()
       ..withTagsId()
       ..withTagsName()
-      ..withCharcters(AnilistSubquery(charSelect, perPage: 5))
-      ..withStaff(AnilistSubquery(staffSelect, perPage: 5));
-    var media = await request.byId(53390);
+      ..withCharacters(
+        AnilistSubquery<AnilistCharacterSelect>(charSelect, perPage: 5),
+      )
+      ..withStaff(AnilistSubquery<AnilistStaffSelect>(staffSelect, perPage: 5));
+    AnilistMedia media = await request.byId(53390);
 
     expect(media.id, equals(53390));
     expect(media.idMal, equals(23390));
@@ -72,25 +74,27 @@ void main() {
     expect(media.staff?.nodes?.first.name?.full, isA<String>());
   });
   test('request media query', () async {
-    final request = AnilistMediaRequest();
+    final AnilistMediaRequest request = AnilistMediaRequest();
     request
       ..withIdMal()
       ..withTitle();
     request.querySearch('attack on titan');
-    var result = await request.list(10, 1);
+    AnilistQueryResult<AnilistMedia> result = await request.list(10, 1);
     expect(result.results, hasLength(10));
-    expect(result.results?.first.title?.english?.toLowerCase(),
-        contains('attack'),);
+    expect(
+      result.results?.first.title?.english?.toLowerCase(),
+      contains('attack'),
+    );
   });
 
   test('request media query list', () async {
-    final request = AnilistMediaRequest();
+    final AnilistMediaRequest request = AnilistMediaRequest();
     request.withGenres();
     request
       ..querySearch('attack')
-      ..queryGenres(['comedy', 'action']);
+      ..queryGenres(<String>['comedy', 'action']);
 
-    var result = await request.list(1, 1);
+    AnilistQueryResult<AnilistMedia> result = await request.list(1, 1);
 
     expect(result.results, hasLength(1));
     expect(result.results?.first.genres, contains('Comedy'));
@@ -98,68 +102,71 @@ void main() {
   });
 
   test('request media query list type', () async {
-    final request = AnilistMediaRequest();
+    final AnilistMediaRequest request = AnilistMediaRequest();
     request
       ..withType()
       ..queryType(AnilistMediaType.MANGA)
       ..querySearch('attack');
 
-    var result = await request.list(10, 1);
+    AnilistQueryResult<AnilistMedia> result = await request.list(10, 1);
     expect(result.results, hasLength(10));
     expect(
-        result.results!.every((m) => m.type == AnilistMediaType.MANGA), isTrue,);
+      result.results!
+          .every((AnilistMedia m) => m.type == AnilistMediaType.MANGA),
+      isTrue,
+    );
   });
 
   test('request media query sort', () async {
-    final request = AnilistMediaRequest();
+    final AnilistMediaRequest request = AnilistMediaRequest();
     request.withTitle();
     request
       ..querySearch('attack')
-      ..queryGenres(['comedy', 'action'])
-      ..sort([AnilistMediaSort.TITLE_ENGLISH]);
+      ..queryGenres(<String>['comedy', 'action'])
+      ..sort(<AnilistMediaSort>[AnilistMediaSort.TITLE_ENGLISH]);
 
-    var result = await request.list(10, 1);
+    AnilistQueryResult<AnilistMedia> result = await request.list(10, 1);
     expect(result.results, hasLength(greaterThan(1)));
-    var first = result.results?.first;
+    AnilistMedia? first = result.results?.first;
 
-    request.sort([AnilistMediaSort.SEARCH_MATCH]);
+    request.sort(<AnilistMediaSort>[AnilistMediaSort.SEARCH_MATCH]);
 
     result = await request.list(10, 1);
     expect(result.results, hasLength(greaterThan(1)));
 
-    var second = result.results?.first;
+    AnilistMedia? second = result.results?.first;
 
     expect(first, isNot(equals(second)));
   });
 
   test('request character', () async {
-    final request = AnilistCharacterRequest();
+    final AnilistCharacterRequest request = AnilistCharacterRequest();
     request.withName();
-    var char = await request.byId(40881);
+    AnilistCharacter char = await request.byId(40881);
     expect(char.name?.full, equals('Mikasa Ackerman'));
   });
   test('search character', () async {
-    final request = AnilistCharacterRequest();
+    final AnilistCharacterRequest request = AnilistCharacterRequest();
     request
       ..withName()
       ..querySearch('Mikasa Ackerman');
-    var char = await request.list(1, 1);
+    AnilistQueryResult<AnilistCharacter> char = await request.list(1, 1);
     expect(char.results?.first.name?.full, equals('Mikasa Ackerman'));
   });
   test('request staff', () async {
-    final request = AnilistStaffRequest();
+    final AnilistStaffRequest request = AnilistStaffRequest();
     request.withName();
-    var staff = await request.byId(106705);
+    AnilistStaff staff = await request.byId(106705);
     expect(staff.name?.first, equals('Hajime'));
   });
   test('request staff search', () async {
-    final request = AnilistStaffRequest();
+    final AnilistStaffRequest request = AnilistStaffRequest();
     request
       ..withName()
       ..withImage()
       ..querySearch('akira');
 
-    var staffs = await request.list(100, 1);
+    AnilistQueryResult<AnilistStaff> staffs = await request.list(100, 1);
     expect(staffs.results?.first.name?.first, equals('Akira'));
   });
 }

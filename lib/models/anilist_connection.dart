@@ -1,3 +1,5 @@
+// ignore_for_file: always_specify_types
+
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';

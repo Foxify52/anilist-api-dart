@@ -29,7 +29,7 @@ abstract class AnilistPageInfo
       _$AnilistPageInfo;
 
   static const FullType specifiedType =
-      FullType(BuiltList, [FullType(AnilistPageInfo)]);
+      FullType(BuiltList, <FullType>[FullType(AnilistPageInfo)]);
 
   static String jsonListString(BuiltList<AnilistPageInfo> list) =>
       jsonEncode(serializers.serialize(list, specifiedType: specifiedType));
@@ -39,10 +39,10 @@ abstract class AnilistPageInfo
           as BuiltList<AnilistPageInfo>;
 
   static AnilistPageInfo fromJson(Map<String, dynamic> json) =>
-      serializers.deserialize(json, specifiedType: FullType(AnilistPageInfo))
+      serializers.deserialize(json, specifiedType: const FullType(AnilistPageInfo))
           as AnilistPageInfo;
 
   static String toJson(AnilistPageInfo pageInfo) =>
-      serializers.serialize(pageInfo, specifiedType: FullType(AnilistPageInfo))
+      serializers.serialize(pageInfo, specifiedType: const FullType(AnilistPageInfo))
           as String;
 }

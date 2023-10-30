@@ -24,7 +24,7 @@ class AnilistMediaSource extends EnumClass {
   static const AnilistMediaSource DOUJINSHI = _$doujinishi;
   static const AnilistMediaSource ANIME = _$anime;
 
-  const AnilistMediaSource._(String name) : super(name);
+  const AnilistMediaSource._(super.name);
 
   static BuiltSet<AnilistMediaSource> get values => _$values;
   static AnilistMediaSource valueOf(String name) => _$valueOf(name);

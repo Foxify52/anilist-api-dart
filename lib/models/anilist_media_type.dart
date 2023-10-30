@@ -17,7 +17,7 @@ class AnilistMediaType extends EnumClass {
   static const AnilistMediaType MANGA = _$manga;
   static const AnilistMediaType ANIME = _$anime;
 
-  const AnilistMediaType._(String name) : super(name);
+  const AnilistMediaType._(super.name);
 
   static BuiltSet<AnilistMediaType> get values => _$values;
   static AnilistMediaType valueOf(String name) => _$valueOf(name);

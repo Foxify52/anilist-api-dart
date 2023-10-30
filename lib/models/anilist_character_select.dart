@@ -3,7 +3,7 @@ import 'models.dart';
 class AnilistCharacterSelect extends AnilistSelect {
   @override
   String get name => 'Characters';
-  static const Map<String, dynamic> argumentName = {
+  static const Map<String, dynamic> argumentName = <String, void>{
     'first': null,
     'last': null,
     'full': null,
@@ -11,7 +11,7 @@ class AnilistCharacterSelect extends AnilistSelect {
     'alternative': null,
   };
 
-  static const Map<String, dynamic> argumentImage = {
+  static const Map<String, dynamic> argumentImage = <String, void>{
     'large': null,
     'medium': null,
   };
@@ -29,7 +29,7 @@ class AnilistCharacterSelect extends AnilistSelect {
 
   @override
   String queryElements(Map<String, dynamic> arguments) {
-    return arguments.keys.map((k) {
+    return arguments.keys.map((String k) {
       if (arguments[k] != null) {
         return '$k {${queryElements(arguments[k])}}';
       } else {

@@ -19,7 +19,7 @@ class AnilistMediaStatus extends EnumClass {
   static const AnilistMediaStatus NOT_YET_RELEASED = _$notyetreleased;
   static const AnilistMediaStatus CANCELLED = _$cancelled;
 
-  const AnilistMediaStatus._(String name) : super(name);
+  const AnilistMediaStatus._(super.name);
 
   static BuiltSet<AnilistMediaStatus> get values => _$values;
   static AnilistMediaStatus valueOf(String name) => _$valueOf(name);

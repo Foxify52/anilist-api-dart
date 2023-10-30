@@ -1,3 +1,6 @@
+// ignore_for_file: implementation_imports
+
+import 'package:built_collection/src/list.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 
@@ -20,22 +23,22 @@ abstract mixin class AnilistRequest<T> {
   Future<AnilistQueryResult<U>> listRequest<U>(int perPage, int page) async {
     this.page = page;
     this.perPage = perPage;
-    var response = await client.post(
+    Response<dynamic> response = await client.post(
       '',
-      data: {
-        "query": whereQuery,
+      data: <String, String>{
+        'query': whereQuery,
       },
     );
-    var mediasJson = response.data['data']['Page'][name.toLowerCase()];
-    var medias = mediasJson == null
+    dynamic mediasJson = response.data['data']['Page'][name.toLowerCase()];
+    BuiltList<U>? medias = mediasJson == null
         ? null
         : AnilistSerializable<U>().fromJsonList(mediasJson);
-    var pageInfoJson = response.data['data']['Page']['pageInfo'];
-    var pageInfo =
+    dynamic pageInfoJson = response.data['data']['Page']['pageInfo'];
+    AnilistPageInfo? pageInfo =
         pageInfoJson == null ? null : AnilistPageInfo.fromJson(pageInfoJson);
 
     return AnilistQueryResult<U>(
-      (b) => b
+      (AnilistQueryResultBuilder<U> b) => b
         ..pageInfo = pageInfo?.toBuilder()
         ..results = medias?.toBuilder(),
     );
